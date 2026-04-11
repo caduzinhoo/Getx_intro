@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_intro/value_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,41 +13,51 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: MyHomePage(
-        title: 'Flutter Demo Home Page',
-      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title});
+class MyHomePage extends StatelessWidget {
+   MyHomePage({super.key, required this.title});
 
-  final textController = TextEditingController();
   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
 
-class _MyHomePageState extends State<MyHomePage> {
+
+
+  final textController = TextEditingController();
+  final valueController = ValueController();
+
+
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print('Constriu');
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // valor
-          Text('Valor definido:'),
-          // campo
-          TextField(),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // valor
+            Text('Valor definido: ${valueController.definedValue}'),
+            // campo
+            TextField(controller: textController),
 
-          // Botão
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Confirmar'),
-          ),
-        ],
+            // Botão
+            ElevatedButton(
+              onPressed: () {
+                String value = textController.text;
+                
+            
+                  valueController.definedValue = value;
+          
+              },
+              child: Text('Confirmar'),
+            ),
+          ],
+        ),
       ),
     );
   }
